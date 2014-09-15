@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "Database\Database.sqlproj", "{1D2CBF75-AB05-4A17-A3D2-48D25F67074A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{4516473C-0772-4716-9436-E44DEAEC1019}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{333CB82D-485F-4D32-AC85-759F54B3E50B}"
 EndProject
 Global
@@ -21,10 +19,6 @@ Global
 		{1D2CBF75-AB05-4A17-A3D2-48D25F67074A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D2CBF75-AB05-4A17-A3D2-48D25F67074A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1D2CBF75-AB05-4A17-A3D2-48D25F67074A}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{4516473C-0772-4716-9436-E44DEAEC1019}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4516473C-0772-4716-9436-E44DEAEC1019}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4516473C-0772-4716-9436-E44DEAEC1019}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4516473C-0772-4716-9436-E44DEAEC1019}.Release|Any CPU.Build.0 = Release|Any CPU
 		{333CB82D-485F-4D32-AC85-759F54B3E50B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{333CB82D-485F-4D32-AC85-759F54B3E50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{333CB82D-485F-4D32-AC85-759F54B3E50B}.Release|Any CPU.ActiveCfg = Release|Any CPU
