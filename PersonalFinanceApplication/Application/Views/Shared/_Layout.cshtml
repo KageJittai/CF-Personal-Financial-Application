@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Personal Financial Application - @ViewBag.Title</title>
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="/assets/css/styles.css" rel="stylesheet" />
+    <link href="/assets/css/treeGrid.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-toggle"></span>
+                </button>
+                <a class="navbar-brand" href="/">Personal Financial Application</a>
+            </div>
+            @Html.Partial("_LoginPartial")
+        </div>
+    </div>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <footer class="text-center">This Bootstrap 3 dashboard layout is compliments of <a href="http://www.bootply.com/85850"><strong>Bootply.com</strong></a></footer>
+
+    <!--jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+
+    <!--Bootstrap-->
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <!--Angular-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-sanitize.min.js"></script>
+
+    <!--Angular Plugins-->
+    <script src="/app/treegrid-directive.js"></script>
+
+    <!--My Applicaton-->
+    <script src="/app/module.js"></script>
+    <script src="/app/account-service.js"></script>
+    <script src="/app/account-controller.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

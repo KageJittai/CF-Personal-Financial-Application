@@ -1,0 +1,49 @@
+﻿<div>
+    <table class="table table-bordered table-striped tree-grid">
+        <thead class="text-primary">
+            <tr>
+                <th>{{expandingDisplayName || expandingProperty}}</th>
+                <th ng-repeat="col in colDefinitions">{{col.displayName || col.field}}</th>
+                <th>Balance</th>
+                <th>Transactions</th>
+                <th>UnReconciled</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--track by row.branch.uid"-->
+            <tr ng-repeat="row in tree_rows | filter:{visible:true}"
+                ng-class="'level-' + {{ row.level }} + (row.branch.selected ? ' active' : '')" class="tree-grid-row">
+
+                <td class="text-primary">
+                    <span ng-class="row.tree_icon"
+                       ng-click="row.branch.expanded =!row.branch.expanded"
+                       class="indented tree-icon"></span>
+                    <span class="indented tree-label" ng-click="user_clicks_branch(row.branch)">
+                        {{row.branch[expandingProperty]}}
+                    </span>
+                </td>
+                <td ng-repeat="col in colDefinitions">{{row.branch[col.field]}}</td>
+                <!--
+                <td>{{row.branch["tBalance"] | currency}}</td>
+                <td>{{row.branch["tTransactions"]}}</td>
+                <td>{{row.branch["tUnReconciled"]}}</td>-->
+
+                <td>{{row.branch["myBalance"] | currency}}</td>
+                <td>{{row.branch["myTransactions"]}}</td>
+                <td>{{row.branch["myUnReconciled"]}}</td>
+    <!--
+                <td>{{row.branch["tBalance"] | currency}} ({{row.branch["myBalance"] | currency}})</td>
+                <td>{{row.branch["tTransactions"]}} ({{row.branch["myTransactions"]}})</td>
+                <td>{{row.branch["tUnReconciled"]}} ({{row.branch["myUnReconciled"]}})</td>-->
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-list-alt"></span></button>
+                        <button type="button" class="btn btn-warning" ng-click="controls.edit(row.branch)"><span class="glyphicon glyphicon-edit"></span></button>
+                        <button type="button" class="btn btn-danger" ng-click="controls.delete(row.branch)"><span class="glyphicon glyphicon-trash"></span></button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

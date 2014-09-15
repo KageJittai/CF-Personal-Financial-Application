@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "{{controllername}}";
+}
+
+<div class="row">
+    <div class="col-md-2">
+        <h3><i class="glyphicon glyphicon-briefcase"></i> Menu</h3>
+        <hr>
+
+        <ul class="nav nav-stacked">
+            <li><a href="#"><i class="glyphicon glyphicon-dashboard"></i> Dashboard</a></li>
+            <li><a href="#/Accounts"><i class="glyphicon glyphicon-folder-open"></i> Accounts</a></li>
+            <li><a href="#/Household"><i class="glyphicon glyphicon-home"></i> Household</a></li>
+            <li><a href="#/Budget"><i class="glyphicon glyphicon-signal"></i> Budgets</a></li>
+        </ul>
+
+        <hr>
+
+    </div>
+    <div ng-view></div>
+</div>

@@ -1,0 +1,7 @@
+﻿DROP TABLE [Budget]
+DROP TABLE [Transaction]
+DROP TABLE [Account]
+DROP TABLE [UserLogin]
+DROP TABLE [Invite]
+DROP TABLE [User]
+DROP TABLE [Household]
