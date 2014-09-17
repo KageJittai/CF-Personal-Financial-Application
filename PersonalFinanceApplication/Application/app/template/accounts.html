@@ -4,26 +4,66 @@
 </script>
 
 <div class="col-sm-9">
-   <h3><i class="glyphicon glyphicon-folder-open"></i> {{controllername}}</h3>
+    <h3><i class="glyphicon glyphicon-folder-open"></i> {{controllername}}</h3>
 
-   <hr>
+    <hr>
 
-    <button class="btn btn-primary" ng-click="controls.create()">
+    <button class="btn btn-primary" ng-click="createOpen()">
         Create Account
     </button>
 
-   <div class="row">
+    <div class="row">
         <div class="col-md-12">
-            <tree-grid tree-data="accountTreeData"
+            <!--tree-grid tree-data="accountTreeData"
                        tree-control="accountTreeControl"
                        controls="controls"
                        col-defs="accountColumes"
                        expand-on="'name'"
                        expand-display-name="Name"
                        on-select="accountSelected(branch)"
-                       icon-leaf="glyphicon glyphicon-folder-close"></tree-grid>
+                       icon-leaf="glyphicon glyphicon-folder-close"></!--tree-grid>-->
+            <table class="table table-bordered table-striped">
+                <thead class="text-primary">
+                    <tr>
+                        <th>Account</th>
+                        <th>Catagory</th>
+                        <th>Balance</th>
+                        <th>Transactions</th>
+                        <th>UnReconciled</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in treeToRows(accountsTree, 0)">
+                        <td class="text-primary" ng-style="{'padding-left': '' + (row.level * 15 + 8) + 'px'}">
+                            <span ng-click="accountClicked(row)">
+                                <span ng-class="rowIcon(row)"></span> {{row.name}}
+                            </span>
+                        </td>
+                        <!--
+                        <td>{{ row.tBalance | currency }}</td>
+                        <td>{{ row.tTransactions }}</td>
+                        <td>{{ row.tUnReconciled }}</td>-->
+                        <td>{{ row.catagory }}</td>
+                        <td>{{ row.myBalance | currency }}</td>
+                        <td>{{ row.myTransactions }}</td>
+                        <td>{{ row.myUnReconciled }}</td>
+                        <!--
+                            <td>{{ row.tBalance | currency }} ({{ row.myBalance | currency }})</td>
+                            <td>{{ row.tTransactions }} ({{ row.myTransactions }})</td>
+                            <td>{{ row.tUnReconciled }} ({{ row.myUnReconciled }})</td>-->
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary" ng-click="gotoTransaction(row)"><span class="glyphicon glyphicon-list-alt"></span></button>
+                                <button type="button" class="btn btn-warning" ng-click="editOpen(row)"><span class="glyphicon glyphicon-edit"></span></button>
+                                <button type="button" class="btn btn-danger" ng-click="delete(row)"><span class="glyphicon glyphicon-trash"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-   </div>
+    </div>
 </div>
 
 <!-- Create/Update Modal -->
@@ -32,14 +72,30 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">{{toEdit == null ? "Create" : "Update"}}</h4>
+                <h4 class="modal-title" id="myModalLabel">{{toEdit.id == null ? "Create" : "Update"}}</h4>
             </div>
             <div class="modal-body">
-                
+                <form ng-submit="controls.save()" name="ucform" novalidate>
+                    <select ng-model="toEdit.catagory" required>
+                        <option value="INC">Income</option>
+                        <option value="AST">Asset/Bank</option>
+                        <option value="EXP">Expense</option>
+                    </select>
+                    {{toEdit.catagory}}
+                    <select ng-model="toEdit.parentId">
+                        <option value="null">None</option>
+                        <option ng-repeat="account in accounts | filter:{catagory: toEdit.catagory}"
+                                value="{{account.id}}">
+                            {{longName(account.id)}}
+                        </option>
+
+                    </select>
+                    <input ng-model="toEdit.name" placeholder="Account Name" required />
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" ng-click="save()">Save changes</button>
             </div>
         </div>
     </div>

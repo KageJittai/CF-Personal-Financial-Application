@@ -75,14 +75,13 @@
     <Build Include="Functions\AccountAndChildren.sql" />
     <Build Include="Tables\Invite.sql" />
     <Build Include="Functions\AccountType.sql" />
-    <Build Include="Functions\AccountHousehold.sql" />
     <Build Include="Procedures\Account\DeleteAccount.sql" />
     <Build Include="Procedures\Account\GetAccountBalance.sql" />
     <Build Include="Procedures\Account\GetHouseholdAccounts.sql" />
     <Build Include="Procedures\Account\CreateAccount.sql" />
     <Build Include="Procedures\Account\UpdateAccount.sql" />
     <Build Include="Procedures\Transaction\UpdateTransaction.sql" />
-    <Build Include="Procedures\Transaction\GetTransactions.sql" />
+    <Build Include="Procedures\Transaction\GetAccountTransactions.sql" />
     <Build Include="Procedures\Household\DeleteHousehold.sql" />
     <Build Include="Procedures\Transaction\CreateTransaction.sql" />
     <Build Include="Procedures\Transaction\DeleteTransaction.sql" />
@@ -96,6 +95,8 @@
     <Build Include="Procedures\User\DeleteUserLogin.sql" />
     <Build Include="Procedures\User\GetUserLogins.sql" />
     <Build Include="Procedures\User\FindUserByLogin.sql" />
+    <Build Include="Functions\RandomDate.sql" />
+    <Build Include="Procedures\Transaction\GetTransactions.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data.sql" />

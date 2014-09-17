@@ -8,6 +8,7 @@ AS
 
 	DELETE FROM [UserLogin] WHERE UserId = @Id
 	DELETE FROM [User] WHERE Id = @Id
+	DELETE FROM [Invite] WHERE SenderId = @Id
 
 	SELECT @HouseholdCount = COUNT(*) FROM [User] WHERE HouseholdId = @HouseholdId
 

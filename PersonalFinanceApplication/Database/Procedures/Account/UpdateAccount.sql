@@ -1,9 +1,11 @@
 ﻿CREATE PROCEDURE [UpdateAccount]
 	@HouseholdId int,
 	@AccountId int,
-	@NewName nvarchar(50)
+	@Name nvarchar(50),
+	@ParentId int
 AS
-	UPDATE Account
-		SET Name = @NewName
-		WHERE Id = @AccountId AND HouseholdId = @HouseholdId
+	UPDATE Account SET
+		Name = @Name,
+		ParentId = @ParentId
+		WHERE HouseholdId = @HouseholdId AND Id = @AccountId
 RETURN 0

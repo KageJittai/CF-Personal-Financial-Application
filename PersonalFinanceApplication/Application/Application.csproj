@@ -208,14 +208,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="CodeFile1.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\LedgerController.cs" />
     <Compile Include="DataModels\ILedgerDataAccess.cs" />
+    <Compile Include="DataModels\ITransactionDataAccess.cs" />
     <Compile Include="DataModels\IUserDataAccess.cs" />
+    <Compile Include="Models\TransactionModels.cs" />
     <Compile Include="Filters\UserInfo.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -237,9 +239,9 @@
     <Content Include="app\template\accounts.html" />
     <Content Include="app\template\budget.html" />
     <Content Include="app\template\dashboard.html" />
+    <Content Include="app\template\transaction.html" />
     <Content Include="app\template\household.html" />
-    <Content Include="app\template\treegrid.html" />
-    <Content Include="app\treegrid-directive.js" />
+    <Content Include="app\transaction-controller.js" />
     <Content Include="assets\css\bootstrap.min.css" />
     <Content Include="assets\css\styles.css" />
     <Content Include="assets\css\treeGrid.css" />
@@ -248,7 +250,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config" />
-    <Content Include="donotuse.html" />
     <Content Include="sample.html" />
     <Content Include="Views\Application\Index.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />

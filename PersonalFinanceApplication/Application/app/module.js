@@ -21,6 +21,11 @@ app.config(function ($routeProvider) {
             templateUrl: 'app/template/budget.html',
             controller: 'BudgetController'
         })
+        
+        .when("/Transaction/:id", {
+            templateUrl: 'app/template/transaction.html',
+            controller: 'TransactionController'
+            })
 
 });
 
@@ -36,3 +41,5 @@ app.controller("HouseholdController", function ($scope, $rootScope) {
 app.controller("BudgetController", function ($scope, $rootScope) {
     $rootScope.controllername = "Budget";
 });
+
+

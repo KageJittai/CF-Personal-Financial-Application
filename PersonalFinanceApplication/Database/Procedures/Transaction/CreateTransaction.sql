@@ -7,11 +7,10 @@
 	@Description NVARCHAR(MAX)
 
 AS
-	IF [dbo].[AccountHousehold](@SourceAccount) = @HouseholdId
-	BEGIN
-		INSERT INTO [Transaction]
-			(SourceAccount, DestinationAccount, Amount, Date, Description)
-		VALUES
-			(@SourceAccount, @DestinationAccount, @Amount, @Date, @Description)
-	END
+
+INSERT INTO [Transaction]
+	(HouseholdId, SourceAccount, DestinationAccount, Amount, Date, Description)
+VALUES
+	(@HouseholdId, @SourceAccount, @DestinationAccount, @Amount, @Date, @Description)
+
 RETURN 0

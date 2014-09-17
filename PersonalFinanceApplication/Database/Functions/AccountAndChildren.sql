@@ -1,25 +1,23 @@
 ﻿CREATE FUNCTION [dbo].[AccountAndChildren]
 (
+	@HouseholdId int,
 	@AccountId int
 )
-RETURNS @returntable TABLE
-(
-	Id int
-)
+RETURNS @returntable TABLE ( Id int )
 AS
 BEGIN
 	WITH SEARCH_CTE ( Id )
 	AS
 	(
-		SELECT [Account].Id
+		SELECT [Account].Id Id
 		FROM [Account]
-		WHERE Id = @AccountId
+		WHERE HouseholdId = @HouseholdId AND Id = @AccountId
 
 		UNION ALL
 
-		SELECT [Account].Id
+		SELECT [Account].Id Id
 		FROM [Account]
-		INNER JOIN SEARCH_CTE ON SEARCH_CTE.Id = [Account].ParentId
+		INNER JOIN SEARCH_CTE ON HouseholdId = @HouseholdId AND SEARCH_CTE.Id = [Account].ParentId
 	)
 	INSERT @returntable
 	SELECT Id FROM SEARCH_CTE

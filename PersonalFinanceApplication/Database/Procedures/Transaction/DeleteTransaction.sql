@@ -4,8 +4,6 @@
 
 AS
 
-DELETE t FROM [Transaction] t
-	INNER JOIN [Account] a ON a.Id = t.SourceAccount OR a.Id = t.DestinationAccount
-	WHERE a.HouseholdId = @HouseholdId AND t.Id = @TransactionId
+DELETE FROM [Transaction] WHERE HouseholdId = @HouseholdId AND Id = @TransactionId
 
 RETURN 0

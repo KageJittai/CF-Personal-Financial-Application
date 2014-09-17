@@ -18,7 +18,8 @@ AS
 		SUM(CASE WHEN a.Id = t.DestinationAccount AND t.Reconciled = 0 THEN 1 ELSE 0 END) UnReconciledDestination
 
 	FROM [Account] a
-	LEFT JOIN [Transaction] t ON t.SourceAccount = a.Id OR t.DestinationAccount = a.Id
-	WHERE a.HouseholdId = @HouseholdId
-	GROUP BY a.Id, a.ParentId, a.Name, a.Catagory
+		LEFT JOIN [Transaction] t ON a.HouseholdId = t.HouseholdId AND
+			(t.SourceAccount = a.Id OR t.DestinationAccount = a.Id)
+		WHERE a.HouseholdId = @HouseholdId
+		GROUP BY a.Id, a.ParentId, a.Name, a.Catagory
 RETURN 0

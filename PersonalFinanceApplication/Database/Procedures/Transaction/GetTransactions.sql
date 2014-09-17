@@ -1,11 +1,11 @@
-﻿CREATE PROCEDURE [GetAccountTransactions]
+﻿CREATE PROCEDURE [GetTransactions]
 	@HouseholdId int,
 	@AccountId int
 AS
-	IF [dbo].[AccountHousehold](@AccountId) = @HouseholdId
-	BEGIN
-		SELECT  t.Id, SourceAccount, DestinationAccount, Amount, Date, Description
-		FROM [Transaction] t
-		INNER JOIN AccountAndChildren(@AccountId) ac ON DestinationAccount = ac.Id OR SourceAccount = ac.Id
-	END
+
+SELECT  t.Id, SourceAccount, DestinationAccount, Amount, Date, Description
+	FROM [Transaction] t
+	WHERE HouseholdId = @HouseholdId AND
+		(DestinationAccount = @AccountId OR SourceAccount = @AccountId)
+
 RETURN 0

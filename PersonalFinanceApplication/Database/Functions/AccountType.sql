@@ -1,18 +1,16 @@
 ﻿CREATE FUNCTION [dbo].[AccountType]
 (
-	@AccountId int,
-	@Type1 CHAR(3),
-	@Type2 CHAR(3) = NULL
+	@HouseholdId int,
+	@AccountId int
 )
-RETURNS INT
+RETURNS CHAR(3)
 AS
 BEGIN
-	DECLARE @count int
+	DECLARE @type CHAR(3)
 
-	SELECT @count = COUNT(*)
-	FROM [Account]
-	WHERE Id = @AccountId
-	AND (Catagory = @Type1 OR Catagory = @Type2)
+	SELECT @type = Catagory
+		FROM [Account]
+		WHERE HouseholdId = @HouseholdId AND Id = @AccountId
 
-	RETURN @count
+	RETURN @type
 END
