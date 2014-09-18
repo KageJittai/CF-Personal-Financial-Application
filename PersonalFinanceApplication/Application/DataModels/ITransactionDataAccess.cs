@@ -9,6 +9,6 @@ namespace Application.DataModels
 {
     public interface ITransactionDataAccess
     {
-        Task<IList<TransactionModel>> GetTransactions(int HouseholdId, int? AccountId);
+        Task<IList<TransactionModel>> GetTransactions(TransactionSearchModel search);
     }
 }

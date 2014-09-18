@@ -73,13 +73,10 @@
 
         // Do some recursive math
         var recurse = function (base, parent) {
-            base.myBalance = base.destinationSum - base.sourceSum;
-            base.myUnReconciled = base.unReconciledSource + base.unReconciledDestination;
-            base.myTransactions = base.numberSource + base.numberDestination;
 
-            base.tBalance = base.myBalance;
-            base.tUnReconciled = base.myUnReconciled;
-            base.tTransactions = base.myTransactions;
+            base.tBalance = base.Balance;
+            base.tUnReconciled = base.UnReconciled;
+            base.tTransactions = base.Transactions;
 
             for (var i = 0; i < base.children.length; i++) {
                 recurse(base.children[i], base);
@@ -98,6 +95,12 @@
 
         angular.copy(tempTree, tree);
         angular.copy(data, accounts);
+
+        // Assign longName to accounts
+        for (var i = 0; i < accounts.length; i++) {
+            accounts[i].longName = longName(accounts[i].id);
+        }
+
     }
 
     function findById(id) {

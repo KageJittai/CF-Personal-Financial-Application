@@ -234,6 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\account-controller.js" />
+    <Content Include="app\transaction-service.js" />
     <Content Include="app\account-service.js" />
     <Content Include="app\module.js" />
     <Content Include="app\template\accounts.html" />

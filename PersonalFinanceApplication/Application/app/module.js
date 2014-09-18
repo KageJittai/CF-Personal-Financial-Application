@@ -1,4 +1,4 @@
-﻿var app = angular.module("app", ['ngRoute', 'ngSanitize', 'treeGrid']);
+﻿var app = angular.module("app", ['ngRoute', 'ngSanitize']);
 
 app.config(function ($routeProvider) {
     $routeProvider

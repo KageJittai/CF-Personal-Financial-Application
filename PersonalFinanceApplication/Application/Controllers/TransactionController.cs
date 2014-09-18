@@ -20,7 +20,6 @@ using Application.Security;
 namespace Application.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/Transaction")]
     public class TransactionController : ApiController
     {
         private ApplicationUserManager _userManager;
@@ -47,9 +46,17 @@ namespace Application.Controllers
         }
 
         // GET api/Me
-        public async Task<IHttpActionResult> Get(int? id)
+        [HttpGet]
+        public async Task<IHttpActionResult> Get(int? id, [FromUri] TransactionSearchModel search)
         {
-            return Ok(await Database.GetTransactions(CurrentUser.HouseholdId, id));
+            if (id == null)
+                return BadRequest();
+
+            search.HouseholdId = CurrentUser.HouseholdId;
+            search.AccountId = id.Value;
+
+            IList<TransactionModel> results = await Database.GetTransactions(search);
+            return Ok(results);
         }
 
         public ITransactionDataAccess Database

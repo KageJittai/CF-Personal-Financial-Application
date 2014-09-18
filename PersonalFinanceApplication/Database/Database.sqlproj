@@ -81,7 +81,6 @@
     <Build Include="Procedures\Account\CreateAccount.sql" />
     <Build Include="Procedures\Account\UpdateAccount.sql" />
     <Build Include="Procedures\Transaction\UpdateTransaction.sql" />
-    <Build Include="Procedures\Transaction\GetAccountTransactions.sql" />
     <Build Include="Procedures\Household\DeleteHousehold.sql" />
     <Build Include="Procedures\Transaction\CreateTransaction.sql" />
     <Build Include="Procedures\Transaction\DeleteTransaction.sql" />

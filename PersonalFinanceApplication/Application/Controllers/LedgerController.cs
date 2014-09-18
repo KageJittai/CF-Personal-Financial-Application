@@ -20,7 +20,6 @@ using Application.Security;
 namespace Application.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/Ledger")]
     public class LedgerController : ApiController
     {
         private ApplicationUserManager _userManager;

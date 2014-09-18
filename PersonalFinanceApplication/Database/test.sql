@@ -181,3 +181,11 @@ FROM
 	INNER JOIN AccountAndChildren(@AccountId) ac ON SourceAccount = ac.Id
 	AND [Transaction].[Date] >= @startDate AND [Transaction].[Date] <= @endDate
 ) tbl
+
+
+DECLARE @Table TABLE (amount int NULL)
+
+INSERT INTO @Table (amount) VALUES (10)
+INSERT INTO @Table (amount) VALUES (NULL)
+
+SELECT ISNULL(SUM(amount), 0) FROM @Table

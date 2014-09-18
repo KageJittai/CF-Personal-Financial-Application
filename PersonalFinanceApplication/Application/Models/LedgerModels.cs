@@ -5,20 +5,16 @@ using System.Web;
 
 namespace Application.Models
 {
-    public class DetailedLedgerModel
+    public class GetHouseholdAccountsResult
     {
         public int Id;
 		public int? ParentId;
 		public string Name;
 		public string Catagory;
 
-		public int NumberSource;
-		public decimal SourceSum;
-		public int UnReconciledSource;
-
-		public int NumberDestination;
-        public decimal DestinationSum;
-		public int UnReconciledDestination;
+		public int Transactions;
+		public decimal Balance;
+		public int UnReconciled;
     }
 
     public class LedgerModel

@@ -7,6 +7,7 @@
 	Catagory CHAR(3) NOT NULL,
 	
 	CONSTRAINT Parent_Same_Catagory CHECK (ParentId IS NULL OR ([dbo].[AccountType](HouseholdId, ParentId) = Catagory)),
+	CONSTRAINT Parent_Not_Account CHECK (ParentId != Id),
 	CONSTRAINT Catagory_Enum CHECK (Catagory IN ('AST', 'INC', 'EXP')),
 
 	PRIMARY KEY (HouseholdId, Id),

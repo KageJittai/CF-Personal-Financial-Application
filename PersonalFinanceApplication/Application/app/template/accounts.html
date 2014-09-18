@@ -3,7 +3,7 @@
     <tbody ng-repeat="data in data.nodes" ng-include="'account_tree.html'"></tbody>
 </script>
 
-<div class="col-sm-9">
+<div class="col-sm-10">
     <h3><i class="glyphicon glyphicon-folder-open"></i> {{controllername}}</h3>
 
     <hr>
@@ -14,14 +14,6 @@
 
     <div class="row">
         <div class="col-md-12">
-            <!--tree-grid tree-data="accountTreeData"
-                       tree-control="accountTreeControl"
-                       controls="controls"
-                       col-defs="accountColumes"
-                       expand-on="'name'"
-                       expand-display-name="Name"
-                       on-select="accountSelected(branch)"
-                       icon-leaf="glyphicon glyphicon-folder-close"></!--tree-grid>-->
             <table class="table table-bordered table-striped">
                 <thead class="text-primary">
                     <tr>
@@ -45,9 +37,9 @@
                         <td>{{ row.tTransactions }}</td>
                         <td>{{ row.tUnReconciled }}</td>-->
                         <td>{{ row.catagory }}</td>
-                        <td>{{ row.myBalance | currency }}</td>
-                        <td>{{ row.myTransactions }}</td>
-                        <td>{{ row.myUnReconciled }}</td>
+                        <td>{{ row.balance | currency }}</td>
+                        <td>{{ row.transactions }}</td>
+                        <td>{{ row.unReconciled }}</td>
                         <!--
                             <td>{{ row.tBalance | currency }} ({{ row.myBalance | currency }})</td>
                             <td>{{ row.tTransactions }} ({{ row.myTransactions }})</td>
@@ -75,22 +67,38 @@
                 <h4 class="modal-title" id="myModalLabel">{{toEdit.id == null ? "Create" : "Update"}}</h4>
             </div>
             <div class="modal-body">
-                <form ng-submit="controls.save()" name="ucform" novalidate>
-                    <select ng-model="toEdit.catagory" required>
-                        <option value="INC">Income</option>
-                        <option value="AST">Asset/Bank</option>
-                        <option value="EXP">Expense</option>
-                    </select>
-                    {{toEdit.catagory}}
-                    <select ng-model="toEdit.parentId">
-                        <option value="null">None</option>
-                        <option ng-repeat="account in accounts | filter:{catagory: toEdit.catagory}"
-                                value="{{account.id}}">
-                            {{longName(account.id)}}
-                        </option>
+                <form ng-submit="controls.save()" name="ucform" class="form form-vertical" novalidate>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <div class="controls">
+                            <select ng-model="toEdit.catagory" required ng-disabled="toEdit.id != null" class="form-control">
+                                <option value="INC">Income</option>
+                                <option value="AST">Asset/Bank</option>
+                                <option value="EXP">Expense</option>
+                            </select>
+                        </div>
+                    </div>
 
-                    </select>
-                    <input ng-model="toEdit.name" placeholder="Account Name" required />
+                    <div class="form-group">
+                        <label>Type</label>
+                        <div class="controls">
+                            <select ng-model="toEdit.parentId" ng-disabled="toEdit.id != null" class="form-control" >
+                                <option value="null">None</option>
+                                <option ng-repeat="account in accounts | filter:{catagory: toEdit.catagory} | orderBy:'longName'"
+                                        value="{{account.id}}">
+                                    {{account.longName}}
+                                </option>
+                            </select>
+                        </div>
+                   </div>
+
+                    <div class="form-group">
+                        <label>Name</label>
+                        <div class="controls">
+                            <input ng-model="toEdit.name" class="form-control" placeholder="Account Name" required />
+                        </div>
+                    </div>
+                        
                 </form>
             </div>
             <div class="modal-footer">

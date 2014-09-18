@@ -58,7 +58,7 @@
             return "glyphicon glyphicon-file";
         }
 
-        if (item.expanded) {
+        if (!item.expanded) {
             return "glyphicon glyphicon-plus";
         } else {
             return "glyphicon glyphicon-minus";

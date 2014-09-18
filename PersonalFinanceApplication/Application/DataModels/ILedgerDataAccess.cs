@@ -12,6 +12,6 @@ namespace Application.DataModels
         Task CreateAccount(int HouseholdId, string Name, int? ParentId, string Catagory);
         Task UpdateAccount(int HouseHoldId, int AccountId, string Name, int? ParentId);
         Task DeleteAccount(int HouseholdId, int AccountId);
-        Task<IList<DetailedLedgerModel>> GetHouseholdAccounts(int HouseholdId);
+        Task<IList<GetHouseholdAccountsResult>> GetHouseholdAccounts(int HouseholdId);
     }
 }
