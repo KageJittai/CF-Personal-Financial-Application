@@ -43,10 +43,6 @@
         $("#CreateUpdateModal").modal('hide');
     }
 
-    $scope.gotoTransaction = function(item) {
-        $location.path("/Transaction/" + item.id);
-    }
-
     $scope.treeToRows = treeToRows;
 
     $scope.accountClicked = function (item) {

@@ -1,12 +1,99 @@
-﻿<div class="col-sm-9">
+﻿<div class="col-sm-12">
 
    <h3><i class="glyphicon glyphicon-file"></i> {{controllername}}</h3>
 
    <hr>
+        <div class="col-md-12">
+            <div class="row">
+                <label class="col-md-2">From Account:</label>
+                <select ng-model="sourceAccount">
+                    <option ng-repeat="account in accounts | filter:{catagory: 'INC'} | orderBy:'longName'" value="{{account.id}}">{{account.longName}}</option>
+                    <option ng-repeat="account in accounts | filter:{catagory: 'AST'} | orderBy:'longName'" value="{{account.id}}">{{account.longName}}</option>
+                </select>
+            </div>
+            <div class="row">
+                <label class="col-md-2">To Account:</label>
+                <select ng-model="destinationAccount">
+                    <option ng-repeat="account in accounts | filter:{catagory: 'AST'} | orderBy:'longName'" value="{{account.id}}">{{account.longName}}</option>
+                    <option ng-repeat="account in accounts | filter:{catagory: 'EXP'} | orderBy:'longName'" value="{{account.id}}">{{account.longName}}</option>
+                </select>
+            </div>
+            <div class="row">
+                <label class="col-md-2">Date:</label>
+                <input type="text" ng-model="minDate" datepicker-popup="MM-dd-yyyy" is-open="minDateOpen" close-text="Close" placeholder="Minimum Date" />
 
-   <div class="row">
-        <div class="col-md-7">
-            <p>Hello World</p>
+                <button ng-click="openMinDate($event)">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+
+                -
+                <input type="text" ng-model="maxDate" datepicker-popup="MM-dd-yyyy" is-open="maxDateOpen" close-text="Close" placeholder="Maximum Date" />
+
+                <button ng-click="openMaxDate($event)">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+
+            </div>
+            <div class="row">
+                <label class="col-md-2">Amount:</label>
+                <input type="number" ng-model="minAmount" placeholder="Minimum Amount" /> -
+                <input type="number" ng-model="maxAmount" placeholder="Maximum Amount" />
+            </div>
+            <div class="row">
+                <label class="col-md-2">Search:</label>
+                <input type="text" ng-model="searchText" placeholder="Search Descriptions" />
+            </div>
+            <button ng-click="resetSearch()">Clear</button>
+            <button ng-click="search()">Search</button>
+            <hr />
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Description</th>
+                        <th>Date
+                            <button ng-click="changeOrderBy('Date')">
+                                <span class="glyphicon glyphicon-arrow-up"></span>
+                            </button>
+                            <button ng-click="changeOrderBy('-Date')">
+                                <span class="glyphicon glyphicon-arrow-down"></span>
+                            </button>
+                        </th>
+                        <th>Reconciled</th>
+                        <th>Amount
+                            <button ng-click="changeOrderBy('Amount')">
+                                <span class="glyphicon glyphicon-arrow-up"></span>
+                            </button>
+                            <button ng-click="changeOrderBy('-Amount')">
+                                <span class="glyphicon glyphicon-arrow-down"></span>
+                            </button>
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="record in data">
+                        <td>{{findById(record.sourceAccount).longName}}</td>
+                        <td>{{findById(record.destinationAccount).longName}}</td>
+                        <td>{{record.description}}</td>
+                        <td>{{record.date.getMonth() + '-' + record.date.getDate() + '-' + record.date.getFullYear()}}</td>
+                        <td>
+                            <button ng-click="alert('test')">
+                                <span class="glyphicon glyphicon-ok" ng-show="record.reconciled"></span>
+                                <span class="glyphicon glyphicon-remove" ng-show="!record.reconciled"></span>
+                            </button>
+                        </td>
+                        <td>{{record.amount | currency}}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div ng-show="itemCount == 0">
+                <h1>No results</h1>
+            </div>
+
+            <pagination boundary-links="true" max-size="10" total-items="itemCount" items-per-page="pageSize" ng-model="pageNumber" ng-change="search()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
         </div>
    </div>
 </div>

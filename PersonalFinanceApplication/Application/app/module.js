@@ -1,4 +1,4 @@
-﻿var app = angular.module("app", ['ngRoute', 'ngSanitize']);
+﻿var app = angular.module("app", ['ngRoute', 'ngSanitize', 'ui.bootstrap']);
 
 app.config(function ($routeProvider) {
     $routeProvider
@@ -22,7 +22,7 @@ app.config(function ($routeProvider) {
             controller: 'BudgetController'
         })
         
-        .when("/Transaction/:id", {
+        .when("/Transaction", {
             templateUrl: 'app/template/transaction.html',
             controller: 'TransactionController'
             })

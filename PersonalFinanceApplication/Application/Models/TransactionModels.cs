@@ -15,12 +15,15 @@ namespace Application.Models
         public DateTime Date;
         public string Description;
         public bool Reconciled;
+        public int ResultSize;
     }
 
     public class TransactionSearchModel
     {
         public int HouseholdId {get; set;}
-        public int AccountId {get; set;}
+
+        public int? SourceAccount {get; set;}
+        public int? DestinationAccount { get; set; }
 
         public int? Skip { get; set; }
         public int? Top { get; set; }
@@ -36,6 +39,8 @@ namespace Application.Models
         {
             return new TransactionSearchModel
             {
+                SourceAccount = this.SourceAccount,
+                DestinationAccount = this.DestinationAccount,
                 Skip = this.Skip,
                 Top = this.Top,
                 StartDate = this.StartDate,

@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [GetTransactions]
 	@HouseholdId int,
-	@AccountId int,
+	@SourceAccount int = NULL,
+	@DestinationAccount int = NULL,
 
 	@Skip int = NULL,
 	@Top int = NULL,
@@ -22,12 +23,16 @@ SET @Skip = ISNULL(@Skip, 0)
 SET @Top = ISNULL(@Top, 10)
 
 SELECT
-	Id, SourceAccount, DestinationAccount, Amount, Date, Description, Reconciled
+	Id, SourceAccount, DestinationAccount, Amount, Date, Description, Reconciled,
+	COUNT(*) OVER() ResultSize 
 	FROM [Transaction]
 
 	-- Account Search
 	WHERE HouseholdId = @HouseholdId AND
-		(DestinationAccount = @AccountId OR SourceAccount = @AccountId) AND
+		
+	-- Account
+		(@SourceAccount IS NULL OR SourceAccount = @SourceAccount) AND
+		(@DestinationAccount IS NULL OR DestinationAccount = @DestinationAccount) AND
 
 	-- Date
 		(@StartDate IS NULL OR [Date] >= @StartDate) AND
@@ -44,11 +49,11 @@ SELECT
 		(@ReconciledStatus IS NULL OR Reconciled = @ReconciledStatus)
 
 	ORDER BY
-		CASE WHEN @OrderBy = 'DateA' THEN [Date] END ASC,
-		CASE WHEN @OrderBy = 'DateD' THEN [Date] END DESC,
+		CASE WHEN @OrderBy = 'Date' THEN [Date] END ASC,
+		CASE WHEN @OrderBy = '-Date' THEN [Date] END DESC,
 
-		CASE WHEN @OrderBy = 'AmountA' THEN Amount END ASC,
-		CASE WHEN @OrderBy = 'AmountD' THEN Amount END DESC,
+		CASE WHEN @OrderBy = 'Amount' THEN Amount END ASC,
+		CASE WHEN @OrderBy = '-Amount' THEN Amount END DESC,
 
 		-- Default sorting
 		[Date] DESC

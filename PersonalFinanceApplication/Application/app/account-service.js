@@ -104,6 +104,9 @@
     }
 
     function findById(id) {
+        if (id == null) {
+            return { longName: '<None>' };
+        }
         for (var i = 0; i < accounts.length; ++i) {
             if (accounts[i].id == id) {
                 return accounts[i];

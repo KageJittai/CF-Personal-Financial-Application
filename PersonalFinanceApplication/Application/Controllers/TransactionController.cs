@@ -45,15 +45,10 @@ namespace Application.Controllers
             }
         }
 
-        // GET api/Me
         [HttpGet]
-        public async Task<IHttpActionResult> Get(int? id, [FromUri] TransactionSearchModel search)
+        public async Task<IHttpActionResult> Get([FromUri] TransactionSearchModel search)
         {
-            if (id == null)
-                return BadRequest();
-
             search.HouseholdId = CurrentUser.HouseholdId;
-            search.AccountId = id.Value;
 
             IList<TransactionModel> results = await Database.GetTransactions(search);
             return Ok(results);

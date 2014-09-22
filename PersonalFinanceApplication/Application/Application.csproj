@@ -245,9 +245,9 @@
     <Content Include="app\transaction-controller.js" />
     <Content Include="assets\css\bootstrap.min.css" />
     <Content Include="assets\css\styles.css" />
-    <Content Include="assets\css\treeGrid.css" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="assets\js\bootstrap.min.js" />
+    <Content Include="assets\js\ui-bootstrap-tpls-0.11.0.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config" />

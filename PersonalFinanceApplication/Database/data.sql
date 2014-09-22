@@ -1,4 +1,4 @@
-﻿DECLARE @HouseholdId INT = 3
+﻿DECLARE @HouseholdId INT = 1
 
 DECLARE @Income TABLE (Id INT)
 DECLARE @Bank TABLE (Id INT)

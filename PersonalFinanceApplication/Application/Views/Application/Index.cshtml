@@ -2,20 +2,18 @@
     ViewBag.Title = "{{controllername}}";
 }
 
-<div class="row">
-    <div class="col-md-2">
-        <h3><i class="glyphicon glyphicon-briefcase"></i> Menu</h3>
-        <hr>
 
-        <ul class="nav nav-stacked">
-            <li><a href="#"><i class="glyphicon glyphicon-dashboard"></i> Dashboard</a></li>
-            <li><a href="#/Accounts"><i class="glyphicon glyphicon-folder-open"></i> Accounts</a></li>
-            <li><a href="#/Household"><i class="glyphicon glyphicon-home"></i> Household</a></li>
-            <li><a href="#/Budget"><i class="glyphicon glyphicon-signal"></i> Budgets</a></li>
-        </ul>
+        <div class="btn-group" dropdown>
+            <button type="button" class="btn btn-primary dropdown-toggle">
+                <i class="glyphicon glyphicon-briefcase"></i> Menu <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#"><i class="glyphicon glyphicon-dashboard"></i> Dashboard</a></li>
+                <li><a href="#/Accounts"><i class="glyphicon glyphicon-folder-open"></i> Accounts</a></li>
+                <li><a href="#/Transaction"><i class="glyphicon glyphicon-file"></i> Transactions</a></li>
+                <li><a href="#/Budget"><i class="glyphicon glyphicon-signal"></i> Budgets</a></li>
+                <li><a href="#/Household"><i class="glyphicon glyphicon-home"></i> Household</a></li>
+            </ul>
+        </div>
 
-        <hr>
-
-    </div>
     <div ng-view></div>
-</div>
