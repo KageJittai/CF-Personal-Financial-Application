@@ -20,49 +20,46 @@ using Application.Security;
 namespace Application.Controllers
 {
     [Authorize]
-    public class TransactionController : ApiController
+    public class BudgetController : ApiController
     {
-        public TransactionController()
-        {
-        }
-     
-        public TransactionController(ApplicationUserManager userManager)
-        {
-            UserManager = userManager;
-        }
-
         [HttpGet]
-        public async Task<IHttpActionResult> Get([FromUri] TransactionSearchModel search)
+        public async Task<IHttpActionResult> Get()
         {
-            search.HouseholdId = CurrentUser.HouseholdId;
-
-            IList<TransactionModel> results = await Database.GetTransactions(search);
-            return Ok(results);
+            return Ok(await Database.GetBudget(CurrentUser.HouseholdId));
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> Post([FromBody] TransactionModel model)
+        public async Task<IHttpActionResult> Post([FromBody] BudgetModel model)
         {
             model.HouseholdId = CurrentUser.HouseholdId;
-            await Database.CreateTransaction(model);
+            await Database.CreateBudget(model);
+
             return Ok();
         }
 
         [HttpPut]
-        public async Task<IHttpActionResult> Put([FromUri] int id, [FromBody] TransactionModel model)
+        public async Task<IHttpActionResult> Put([FromUri] int? id, [FromBody] BudgetModel model)
         {
+            if (id == null)
+                return BadRequest();
+
             model.HouseholdId = CurrentUser.HouseholdId;
-            model.Id = id;
-            await Database.UpdateTransaction(model);
+            await Database.CreateBudget(model);
+
             return Ok();
         }
 
         [HttpDelete]
-        public async Task<IHttpActionResult> Delete([FromUri] int id)
+        public async Task<IHttpActionResult> Put([FromUri] int? id)
         {
-            await Database.DeleteTransaction(CurrentUser.HouseholdId, id);
+            if (id == null)
+                return BadRequest();
+
+            await Database.DeleteBudget(CurrentUser.HouseholdId, id.Value);
+
             return Ok();
         }
+
 
         #region Helper
         private ApplicationUserManager _userManager;
@@ -78,11 +75,11 @@ namespace Application.Controllers
             }
         }
 
-        public ITransactionDataAccess Database
+        public IBudgetDataAccess Database
         {
             get
             {
-                return HttpContext.Current.GetOwinContext().Get<SqlConnection>().As<ITransactionDataAccess>();
+                return HttpContext.Current.GetOwinContext().Get<SqlConnection>().As<IBudgetDataAccess>();
             }
         }
 

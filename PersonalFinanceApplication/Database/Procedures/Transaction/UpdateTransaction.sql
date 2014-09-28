@@ -1,23 +1,23 @@
 ﻿CREATE PROCEDURE [dbo].[UpdateTransaction]
 	@HouseholdId INT,
-	@TransactionId INT,
+	@Id INT,
 
-	@NewSourceAccount INT = NULL,
-	@NewDestinationAccount INT = NULL,
-	@NewAmount MONEY,
-	@NewDate DATE,
-	@NewDescription NVARCHAR(MAX)
+	@SourceAccount INT = NULL,
+	@DestinationAccount INT = NULL,
+	@Amount MONEY,
+	@Date DATE,
+	@Description NVARCHAR(MAX),
+	@Reconciled BIT
 AS
 
 UPDATE t SET
-	SourceAccount = @NewSourceAccount,
-	DestinationAccount = @NewDestinationAccount,
-	Amount = @NewAmount,
-	Date = @NewDate,
-	Description = @NewDescription
+	SourceAccount = @SourceAccount,
+	DestinationAccount = @DestinationAccount,
+	Amount = @Amount,
+	Date = @Date,
+	Description = @Description,
+	Reconciled = @Reconciled
 FROM [Transaction] t
-INNER JOIN [Account] a ON a.HouseholdId = t.HouseholdId AND
-	(a.Id = t.SourceAccount OR a.Id = t.DestinationAccount)
-WHERE t.Id = @TransactionId AND a.HouseholdId = @HouseholdId
+WHERE t.Id = @Id AND t.HouseholdId = @HouseholdId
 
 RETURN 0

@@ -2,40 +2,28 @@
 
     var accounts = [];
     var tree = [];
-    var dirty = true;
 
-    function refreshAccounts() {
+    function refresh() {
         $http.get("/api/Ledger")
             .success(function (data, status, header, config) {
                 // Delete all the accounts
-                dirty = false;
-
                 updateTree(data);
             });
     }
 
-    function createAccount(newAccount) {
+    function create(newAccount) {
         $http.post("api/Ledger/", newAccount)
-            .success(function () {
-                dirty = true;
-                refreshAccounts();
-            });
+            .success(refresh);
     }
 
-    function updateAccount(id, newAccount) {
+    function update(id, newAccount) {
         $http.put("api/Ledger/" + id, newAccount)
-            .success(function () {
-                dirty = true;
-                refreshAccounts();
-            });
+            .success(refresh);
     }
 
-    function deleteAccount(id) {
+    function remove(id) {
         $http.delete("api/Ledger/" + id)
-            .success(function () {
-                dirty = true;
-                refreshAccounts();
-            });
+            .success(refresh);
     }
 
     function updateTree(data) {
@@ -74,9 +62,9 @@
         // Do some recursive math
         var recurse = function (base, parent) {
 
-            base.tBalance = base.Balance;
-            base.tUnReconciled = base.UnReconciled;
-            base.tTransactions = base.Transactions;
+            base.tBalance = base.balance;
+            base.tUnReconciled = base.unReconciled;
+            base.tTransactions = base.transactions;
 
             for (var i = 0; i < base.children.length; i++) {
                 recurse(base.children[i], base);
@@ -100,7 +88,6 @@
         for (var i = 0; i < accounts.length; i++) {
             accounts[i].longName = longName(accounts[i].id);
         }
-
     }
 
     function findById(id) {
@@ -124,15 +111,15 @@
             return longName(__ref.parentId) + ": " + __ref.name;
     }
 
-    refreshAccounts();
+    refresh();
 
     return {
         accounts: accounts,
         accountsTree: tree,
         findById: findById,
-        longName: longName,
-        createAccount: createAccount,
-        updateAccount: updateAccount,
-        deleteAccount: deleteAccount
+        create: create,
+        update: update,
+        remove: remove,
+        refresh: refresh
     }
 });

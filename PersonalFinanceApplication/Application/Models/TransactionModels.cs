@@ -8,14 +8,28 @@ namespace Application.Models
 {
     public class TransactionModel
     {
-        public int Id;
-        public int? SourceAccount;
-        public int? DestinationAccount;
-        public decimal Amount;
-        public DateTime Date;
-        public string Description;
-        public bool Reconciled;
-        public int ResultSize;
+        public int HouseholdId { get; set; }
+        public int Id { get; set; }
+        public int? SourceAccount { get; set; }
+        public int? DestinationAccount { get; set; }
+        public decimal Amount { get; set; }
+        public DateTime Date { get; set; }
+        public string Description { get; set; }
+        public bool Reconciled { get; set; }
+        public int ResultSize { get; set; }
+
+        public TransactionModel ToTransactionModel()
+        {
+            return new TransactionModel {
+                Id = this.Id,
+                SourceAccount = this.SourceAccount,
+                DestinationAccount = this.DestinationAccount,
+                Amount = this.Amount,
+                Date = this.Date,
+                Description = this.Description,
+                Reconciled = this.Reconciled
+            };
+        }
     }
 
     public class TransactionSearchModel

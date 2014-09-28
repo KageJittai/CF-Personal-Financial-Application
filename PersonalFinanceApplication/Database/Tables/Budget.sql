@@ -7,6 +7,8 @@
 	StartDate Date NOT NULL,
 	EndDate Date NOT NULL,
 
+	CONSTRAINT Budget_Account_Exp CHECK ([dbo].[AccountType](HouseholdId, AccountId) = 'EXP'),
+
 	PRIMARY KEY (HouseholdId, Id),
 	CONSTRAINT FK_BUDGET_HOUSEHOLD FOREIGN KEY (HouseholdId) REFERENCES [Household](Id),
 	CONSTRAINT FK_BUDGET_ACCOUNT FOREIGN KEY (HouseholdId, AccountId) REFERENCES [Account](HouseholdId, Id)

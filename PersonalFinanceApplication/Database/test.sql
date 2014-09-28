@@ -189,3 +189,131 @@ INSERT INTO @Table (amount) VALUES (10)
 INSERT INTO @Table (amount) VALUES (NULL)
 
 SELECT ISNULL(SUM(amount), 0) FROM @Table
+
+
+DECLARE @endtime date = SYSDATETIME()
+DECLARE @starttime date = DATEADD(month, -1, @endtime)
+--EXECUTE CreateBudget 3, 1055, 150.00, @starttime, @endtime
+--EXECUTE DeleteBudget 3, 4
+
+EXECUTE GetBudgets 3
+EXECUTE GetTransactions 3, NULL, 1055, 0, 100, @starttime, @endtime, NULL, NULL, NULL, NULL, '-Date'
+
+DECLARE @HouseholdId int = 3
+DECLARE @Id int = 3
+DECLARE @AccountId int
+
+SELECT @AccountId = b.AccountId
+	FROM Budget b
+	WHERE b.HouseholdId = @HouseholdId AND b.Id = @Id
+
+SELECT b.Id Id, Limit, StartDate, EndDate, SUM(t.Amount) CurrentSum
+	FROM Budget b
+		LEFT JOIN [Transaction] t
+			ON t.HouseholdId = @HouseholdId
+		RIGHT JOIN AccountAndChildren(@HouseholdId, @AccountId) tt
+			ON tt.Id = t.DestinationAccount
+	WHERE b.HouseholdId = @HouseholdId AND b.Id = @Id AND
+		  (t.[Date] >= b.StartDate AND t.[Date] <= b.EndDate)
+	GROUP BY b.Id, Limit, StartDate, EndDate
+
+
+SELECT * FROM
+	Budget b,
+	(SELECT SUM(Amount) Balance, COUNT(*) NumberOfTransactions
+		FROM
+		(
+			SELECT Amount Amount
+			FROM [Transaction]
+			INNER JOIN @TempTable ac ON HouseholdId = @HouseholdId AND DestinationAccount = ac.Id
+			AND [Transaction].[Date] >= @StartDate AND [Transaction].[Date] <= @EndDate
+
+			UNION ALL
+	
+			SELECT -Amount Amount
+			FROM [Transaction]
+			INNER JOIN @TempTable ac ON HouseholdId = @HouseholdId AND SourceAccount = ac.Id
+			AND [Transaction].[Date] >= @StartDate AND [Transaction].[Date] <= @EndDate
+		)
+	) t
+
+EXECUTE GetBudgetDetails 3, 3
+EXECUTE CreateBudget 3, 10604, 599, '2013-6-1', '2013-6-30'
+EXECUTE GetBudgets 3
+
+DECLARE @HouseholdId INT = 3
+
+--SELECT
+--	b.Id Id,
+--	b.AccountId AccountId,
+--	Limit,
+--	StartDate,
+--	EndDate,
+--	SUM(t.Amount) CurrentSum
+--FROM Budget b
+--	INNER JOIN AccountAndChildren(@HouseholdId, b.AccountId) tt ON 1 = 1
+--	LEFT JOIN [Transaction] t
+--		ON t.HouseholdId = @HouseholdId AND tt.Id = t.DestinationAccount
+--WHERE
+--	b.HouseholdId = @HouseholdId AND
+--	(t.[Date] >= b.StartDate AND t.[Date] <= b.EndDate)
+--GROUP BY
+--	b.Id,
+--	b.AccountId,
+--	Limit,
+--	StartDate,
+--	EndDate
+
+DECLARE @HouseholdId INT = 3;
+
+WITH CTE ( Id, SourceId, AccountId, Limit, StartDate, EndDate )
+AS
+(
+	SELECT 
+		b.Id Id,
+		b.AccountId SourceId,
+		b.AccountId AccountId,
+		Limit,
+		StartDate,
+		EndDate
+	FROM [Budget] b
+	WHERE HouseholdId = @HouseholdId
+
+	UNION ALL
+
+	SELECT
+		b.Id,
+		b.SourceId SourceId,
+		a.Id,
+		b.Limit,
+		b.StartDate,
+		b.EndDate
+	FROM [Account] a
+	INNER JOIN CTE b ON HouseholdId = @HouseholdId AND b.AccountId = a.ParentId
+)
+SELECT
+	c.Id Id,
+	c.SourceId AccoundId,
+	c.Limit Limit,
+	c.StartDate StartDate,
+	c.EndDate EndDate,
+	CAST(SUM(CASE 
+		WHEN t.Amount IS NULL
+			THEN 0 
+			ELSE t.Amount
+	END) AS MONEY) CurrentSum,
+	(CASE 
+		WHEN c.StartDate <= SYSDATETIME() AND
+			 c.EndDate >= SYSDATETIME()
+		THEN 1
+		ELSE 0
+	END) Active
+FROM
+	CTE c
+	LEFT JOIN [Transaction] t
+		ON	t.HouseholdId = @HouseholdId AND
+			t.DestinationAccount = c.AccountId AND
+			t.[Date] >= c.StartDate AND t.[Date] <= c.EndDate
+GROUP BY
+	c.Id, c.SourceId, c.Limit, c.StartDate, c.EndDate
+

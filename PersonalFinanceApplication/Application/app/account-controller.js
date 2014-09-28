@@ -3,11 +3,10 @@
 
     $scope.accounts = account.accounts;
     $scope.accountsTree = account.accountsTree;
-    $scope.longName = account.longName;
 
     $scope.delete = function(item) {
         if (confirm("Do you wish to delete " + item.name + " and all children accounts")){
-            account.deleteAccount(item.id);
+            account.remove(item.id);
         }
     }
 
@@ -34,11 +33,11 @@
     $scope.save = function() {
         if ($scope.toEdit.id == null)
         {
-            account.createAccount($scope.toEdit);
+            account.create($scope.toEdit);
         }
         else
         {
-            account.updateAccount($scope.toEdit.id, $scope.toEdit);
+            account.update($scope.toEdit.id, $scope.toEdit);
         }
         $("#CreateUpdateModal").modal('hide');
     }

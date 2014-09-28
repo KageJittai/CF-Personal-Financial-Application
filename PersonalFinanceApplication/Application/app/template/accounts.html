@@ -28,17 +28,17 @@
                             </span>
                         </td>
                         <!--
-                        <td>{{ row.tBalance | currency }}</td>
-                        <td>{{ row.tTransactions }}</td>
-                        <td>{{ row.tUnReconciled }}</td>-->
+        <td>{{ row.tBalance | currency }}</td>
+        <td>{{ row.tTransactions }}</td>
+        <td>{{ row.tUnReconciled }}</td>-->
                         <td>{{ row.catagory }}</td>
-                        <td>{{ row.balance | currency }}</td>
+                        <td>{{ row.balance | currency }} <br /><span ng-show="row.children.length > 0"><label>Total:</label> {{row.tBalance | currency}}</span></td>
                         <td>{{ row.transactions }}</td>
                         <td>{{ row.unReconciled }}</td>
                         <!--
-                            <td>{{ row.tBalance | currency }} ({{ row.myBalance | currency }})</td>
-                            <td>{{ row.tTransactions }} ({{ row.myTransactions }})</td>
-                            <td>{{ row.tUnReconciled }} ({{ row.myUnReconciled }})</td>-->
+        <td>{{ row.tBalance | currency }} ({{ row.myBalance | currency }})</td>
+        <td>{{ row.tTransactions }} ({{ row.myTransactions }})</td>
+        <td>{{ row.tUnReconciled }} ({{ row.myUnReconciled }})</td>-->
                         <td>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-warning" ng-click="editOpen(row)"><span class="glyphicon glyphicon-edit"></span></button>
@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Type</label>
+                        <label>Parent</label>
                         <div class="controls">
                             <select ng-model="toEdit.parentId" ng-disabled="toEdit.id != null" class="form-control" >
                                 <option value="null">None</option>

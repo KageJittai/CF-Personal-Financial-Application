@@ -10,5 +10,8 @@ namespace Application.DataModels
     public interface ITransactionDataAccess
     {
         Task<IList<TransactionModel>> GetTransactions(TransactionSearchModel search);
+        Task CreateTransaction(TransactionModel Model);
+        Task UpdateTransaction(TransactionModel Model);
+        Task DeleteTransaction(int HouseholdId, int TransactionId);
     }
 }

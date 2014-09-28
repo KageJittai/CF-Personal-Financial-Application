@@ -33,3 +33,12 @@ footer {
  tbody tr:nth-child(odd) {
    background-color: #ccc;
 }
+
+ .nopadding {
+   padding: 0 !important;
+}
+
+ .bordered {
+     border: 1px solid;
+     padding: 20px;
+ }

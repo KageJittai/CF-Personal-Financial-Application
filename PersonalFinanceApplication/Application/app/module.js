@@ -38,8 +38,3 @@ app.controller("HouseholdController", function ($scope, $rootScope) {
     $rootScope.controllername = "Household";
 });
 
-app.controller("BudgetController", function ($scope, $rootScope) {
-    $rootScope.controllername = "Budget";
-});
-
-

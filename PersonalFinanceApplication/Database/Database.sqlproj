@@ -64,6 +64,7 @@
     <Folder Include="Procedures\Transaction" />
     <Folder Include="Procedures\Household" />
     <Folder Include="Procedures\User" />
+    <Folder Include="Procedures\Budget" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Account.sql" />
@@ -76,7 +77,6 @@
     <Build Include="Tables\Invite.sql" />
     <Build Include="Functions\AccountType.sql" />
     <Build Include="Procedures\Account\DeleteAccount.sql" />
-    <Build Include="Procedures\Account\GetAccountBalance.sql" />
     <Build Include="Procedures\Account\GetHouseholdAccounts.sql" />
     <Build Include="Procedures\Account\CreateAccount.sql" />
     <Build Include="Procedures\Account\UpdateAccount.sql" />
@@ -96,6 +96,10 @@
     <Build Include="Procedures\User\FindUserByLogin.sql" />
     <Build Include="Functions\RandomDate.sql" />
     <Build Include="Procedures\Transaction\GetTransactions.sql" />
+    <Build Include="Procedures\Budget\CreateBudget.sql" />
+    <Build Include="Procedures\Budget\DeleteBudget.sql" />
+    <Build Include="Procedures\Budget\UpdateBudget.sql" />
+    <Build Include="Procedures\Budget\GetBudget.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data.sql" />

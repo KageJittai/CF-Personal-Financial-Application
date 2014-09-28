@@ -44,4 +44,8 @@ DELETE FROM [Account]
 	FROM [Account] a
 	INNER JOIN @accountList al ON a.HouseholdId = @HouseholdId AND a.Id = al.Id
 
+DELETE FROM [Budget]
+	FROM [Budget] b
+	INNER JOIN @accountList al ON b.HouseholdId = @HouseholdId AND b.Id = al.Id
+
 RETURN 0
